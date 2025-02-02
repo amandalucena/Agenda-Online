@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listar Contatos</title>
+
+    <!-- Link para o estilo e Tailwind CSS -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="h-screen w-full bg-[url('images/image.png')] bg-center bg-cover flex flex-col px-28 py-5 relative">
+
+        <!-- Navegação -->
+        <nav class="flex items-center">
+            <img src="images/agenda_online-removebg-preview.png" class="w-100 cursor-pointer">
+            <ul class="flex-1 text-center">
+                <li class="list-none inline-block px-5">
+                    <a href="index.html" class="no-underline text-white bg-transparent rounded-3xl px-8 py-3 font-medium inline-block hover:bg-indigo-300">Home</a>
+                </li>
+                <li class="list-none inline-block px-5">
+                    <a href="enviar_email.html" class="no-underline text-white bg-transparent rounded-3xl px-8 py-3 font-medium inline-block hover:bg-indigo-300">Enviar e-mail</a>
+                </li>
+                <li class="list-none inline-block px-5">
+                    <a href="#" class="no-underline text-white bg-indigo-300 rounded-3xl px-8 py-3 font-medium inline-block">Listar contatos</a>
+                </li>
+                <li class="list-none inline-block px-5">
+                    <a href="cadastrar.html" class="no-underline text-white bg-transparent rounded-3xl px-8 py-3 font-medium inline-block hover:bg-indigo-300">Adicionar novo contato</a>
+                </li>
+            </ul>
+            <img src="images/cart.png" class="w-8 cursor-pointer">
+        </nav>
+
+        <!-- Lista de Contatos -->
+        <div class="relative flex flex-col w-full h-full overflow-scroll text-gray-700 bg-white shadow-md rounded-lg bg-clip-border mt-16">
+            <table class="w-full text-left table-auto min-w-max">
+                <thead>
+                    <tr>
+                        <th class="p-4 border-b border-slate-300 bg-slate-50">
+                            <p class="block text-lg font-normal leading-none text-slate-500">Nome</p>
+                        </th>
+                        <th class="p-4 border-b border-slate-300 bg-slate-50">
+                            <p class="block text-lg font-normal leading-none text-slate-500">Telefone</p>
+                        </th>
+                        <th class="p-4 border-b border-slate-300 bg-slate-50">
+                            <p class="block text-lg font-normal leading-none text-slate-500">E-mail</p>
+                        </th>
+                        <th class="p-4 border-b border-slate-300 bg-slate-50"> Ações
+                            <p class="block text-lg font-normal leading-none text-slate-500"></p>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="contatosList">
+                    <!-- Os contatos serão inseridos aqui dinamicamente -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Botão de Voltar -->
+        <button onclick="window.location.href='index.html'"
+            class="w-full mt-4 bg-transparent text-indigo-300 border-2 border-indigo-300 py-3 rounded-3xl font-medium hover:bg-indigo-300 hover:text-white transition duration-300">
+            Voltar para Tela Inicial
+        </button>
+    </div>
+
+    <script>
+        function listarContatos() {
+            let contatos = JSON.parse(localStorage.getItem('contatos')) || [];
+            
+            // Ordena os contatos em ordem alfabética pelo nome
+            contatos.sort((a, b) => a.nome.localeCompare(b.nome));
+
+            const listaContatosDiv = document.getElementById('contatosList');
+            listaContatosDiv.innerHTML = ""; // Limpa a lista antes de exibir
+
+            if (contatos.length === 0) {
+                listaContatosDiv.innerHTML = "<tr><td colspan='4' class='p-4 text-center'>Não há contatos cadastrados.</td></tr>";
+                return;
+            }
+
+            // Exibe os contatos com nome, telefone, e-mail e botão de excluir
+            contatos.forEach((contato, index) => {
+                const contatoRow = document.createElement('tr');
+                contatoRow.classList.add('hover:bg-slate-50');
+                contatoRow.innerHTML = `
+                    <td class="p-4 border-b border-slate-200">
+                        <p class="block text-sm text-slate-800">${contato.nome}</p>
+                    </td>
+                    <td class="p-4 border-b border-slate-200">
+                        <p class="block text-sm text-slate-800">${contato.telefone}</p>
+                    </td>
+                    <td class="p-4 border-b border-slate-200">
+                        <p class="block text-sm text-slate-800">${contato.email}</p>
+                    </td>
+                    <td class="p-4 border-b border-slate-200">
+                        <button type = "button"
+                        class = "focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-sans rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                        onclick="excluirContato(${index})">
+                        Excluir
+                        </button>
+
+                        <button type="button"
+                        class="focus:outline-none text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-900" onclick="editarContato(${index})">
+                        Editar
+                        </button>
+
+                    </td>
+                `;
+                listaContatosDiv.appendChild(contatoRow);
+            });
+        }
+
+        function excluirContato(index) {
+            let contatos = JSON.parse(localStorage.getItem('contatos')) || [];
+
+            // Remove o contato do array pelo índice
+            contatos.splice(index, 1);
+
+            // Atualiza o localStorage com a lista modificada
+            localStorage.setItem('contatos', JSON.stringify(contatos));
+
+            // Atualiza a lista na tela
+            listarContatos();
+        }
+
+        function editarContato(index) {
+    // Redireciona para a página de edição passando o índice do contato
+    window.location.href = `editar_contato.html?index=${index}`;
+}
+
+
+        // Chama a função para listar os contatos assim que a página carregar
+        window.onload = listarContatos;
+    </script>
+
+</body>
+</html>

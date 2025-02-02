@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name = "viewport" content = "width = device-width, initial-scale= 1.0" >
+    <title> Make a web site with a tailwind</title>
+    <link rel = "stylesheet" href = "style.css" >
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  
+  </head>
+  <body>
+    <div class = "h-screen w-full bg-[url('images/image.png')] bg-center bg-cover flex flex-col px-28 py-5 relative" >
+      <nav class = "flex items-center">
+        <img src = "images/agenda_online-removebg-preview.png" class = "w-100 cursor-pointer">
+        <ul class="flex-1 text-center">
+          <li class ="list-none inline-block px-5"><a href="#"class = "no-underline text-white px-2 bg-transparent rounded-3xl px-8 py-3 font-medium inline-block mr-4 hover:bg-indigo-300">Home</a></li>
+          <li class ="list-none inline-block px-5"><a href="enviar_email.html"class = "no-underline text-white px-2 bg-transparent rounded-3xl px-8 py-3 font-medium inline-block mr-4 hover:bg-indigo-300">Enviar e-mail</a></li>
+          <li class ="list-none inline-block px-5"><a href="table.html"class = "no-underline text-white px-2 bg-transparent rounded-3xl px-8 py-3 font-medium inline-block mr-4 hover:bg-indigo-300">Listar contatos</a></li>
+          <li class ="list-none inline-block px-5"><a href="cadastrar.html"class = "no-underline text-white px-2 bg-transparent rounded-3xl px-8 py-3 font-medium inline-block mr-4 hover:bg-indigo-300">Adicionar novo contato</a></li>
+        </ul>
+        <img src="images/cart.png" class = "w-8 cursor-pointer">
+      </nav>
+      <div class ="text-white mt-48 max-w-[50%]">
+        <h1 class ="text-6xl font-bold leading-normal flex flex-wrap"> 
+          Sua agenda inteligente: <br>
+          Organize seus contatos e envie e-mails em segundos
+          <span class= "font-hairline inline"></span></h1>
+        <p class="mt-5 text-xl font-sans">
+          Bem-vindo à sua nova agenda online! Com um design simples e intuitivo, nosso site ajuda você a manter seus contatos sempre organizados, facilitando a busca por qualquer nome. Além disso, você pode enviar e-mails diretamente da plataforma para seus contatos cadastrados, economizando tempo e otimizando sua comunicação. Gerencie tudo em um só lugar, com segurança e praticidade!</p>
+          <div class = "mt-10">
+            <a href = "cadastrar.html" class = "bg-indigo-300 rounded-3xl px-8 py-3 font-medium inline-block mr-4  hover:bg-transparent hover: border-2 hover: border-indigo-300 hover:text-white duration-300 border-2 border-indigo-300"> Iniciar</a>
+            <a href = "#">Dowload App <span class = "text-lg inline block rotate-90">&#10148;</span></a>
+          </div>
+      </div>
+      <img src="images/elemento2-removebg-preview.png" class="absolute right-18 top-[20%] w-2/5">
+    </div>
+
+  </body>
+</html>
