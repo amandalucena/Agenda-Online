@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Novo Contato</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="h-screen w-full bg-[url('images/image.png')] bg-center bg-cover flex flex-col px-28 py-5 relative">
+
+        <nav class="flex items-center">
+            <img src="images/agenda_online-removebg-preview.png" class="w-100 cursor-pointer">
+            <ul class="flex-1 text-center">
+                <li class="list-none inline-block px-5">
+                    <a href="index.html" class="no-underline text-white bg-transparent rounded-3xl px-8 py-3 font-medium inline-block hover:bg-indigo-300">Home</a>
+                </li>
+                <li class="list-none inline-block px-5">
+                    <a href="enviar_email.html" class="no-underline text-white bg-transparent rounded-3xl px-8 py-3 font-medium inline-block hover:bg-indigo-300">Enviar e-mail</a>
+                </li>
+                <li class="list-none inline-block px-5">
+                    <a href="table.html" class="no-underline text-white bg-transparent rounded-3xl px-8 py-3 font-medium inline-block hover:bg-indigo-300">Listar contatos</a>
+                </li>
+                <li class="list-none inline-block px-5">
+                    <a href="cadastrar.html" class="no-underline text-white bg-indigo-300 rounded-3xl px-8 py-3 font-medium inline-block">Adicionar novo contato</a>
+                </li>
+            </ul>
+            <img src="images/cart.png" class="w-8 cursor-pointer">
+        </nav>
+
+        <div class="bg-white p-8 rounded-3xl shadow-lg mt-16 w-full max-w-lg mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Cadastrar Novo Contato</h2>
+            <form id="cadastroForm" onsubmit="cadastrarContato(event)" class="space-y-5">
+                <div>
+                    <label for="nome" class="block text-sm font-medium text-gray-700">Nome</label>
+                    <input type="text" id="nome" name="nome" placeholder="Digite o nome" required
+                        class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                </div>
+
+                <div>
+                    <label for="telefone" class="block text-sm font-medium text-gray-700">Telefone</label>
+                    <input type="text" id="telefone" name="telefone" placeholder="Digite o telefone" required
+                        class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                </div>
+
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">E-mail</label>
+                    <input type="email" id="email" name="email" placeholder="Digite o e-mail" required
+                        class="w-full p-3 mt-1 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-indigo-300 text-white py-3 rounded-3xl font-medium hover:bg-indigo-400 transition duration-300">
+                    Cadastrar
+                </button>
+            </form>
+
+            <button onclick="window.location.href='index.html'"
+                class="w-full mt-4 bg-transparent text-indigo-300 border-2 border-indigo-300 py-3 rounded-3xl font-medium hover:bg-indigo-300 hover:text-white transition duration-300">
+                Voltar para Tela Inicial
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        function cadastrarContato(event) {
+            event.preventDefault();
+
+            const nome = document.getElementById('nome').value;
+            const telefone = document.getElementById('telefone').value;
+            const email = document.getElementById('email').value;
+
+            const novoContato = {
+                nome: nome,
+                telefone: telefone,
+                email: email
+            };
+
+            let contatos = JSON.parse(localStorage.getItem('contatos')) || [];
+            contatos.push(novoContato);
+
+            localStorage.setItem('contatos', JSON.stringify(contatos));
+
+            alert('Contato cadastrado com sucesso!');
+            window.location.href = 'index.html'; // Redireciona para a tela inicial
+        }
+    </script>
+
+</body>
+</html>
